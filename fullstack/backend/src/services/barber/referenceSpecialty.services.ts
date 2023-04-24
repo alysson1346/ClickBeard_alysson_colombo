@@ -26,6 +26,8 @@ const referenceSpecialtyServices = async ({
   if (!specialty) {
     throw new Error("Specialty not found");
   }
+  specialty.attributed = true;
+  await repositorySpecialty.update(specialty.id, specialty);
 
   barber.specialties.push(specialty);
   await repositoryBarber.manager.save(barber);
