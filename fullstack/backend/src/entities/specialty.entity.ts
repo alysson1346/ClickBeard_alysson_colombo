@@ -10,6 +10,9 @@ export class Specialty {
   @Column()
   name: string;
 
+  @Column({ default: false })
+  attributed: boolean;
+
   @OneToMany(() => Schedule, (schedule) => schedule.specialty)
   schedules: Schedule[];
 
