@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Specialty } from "./specialty.entity";
 import { Schedule } from "./schedule.entity";
+import { Available_times } from "./available_time.entity";
 import { v4 as uuid } from "uuid";
 
 @Entity()
@@ -30,6 +31,9 @@ export class Barber {
 
   @OneToMany(() => Schedule, (schedule) => schedule.barber)
   schedules: Schedule[];
+
+  @OneToMany(() => Available_times, (avaliable) => avaliable.barber)
+  available_times: Available_times[];
 
   constructor() {
     if (!this.id) {

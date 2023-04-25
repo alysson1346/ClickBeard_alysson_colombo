@@ -50,7 +50,12 @@ const createScheduleServices = async ({
 
   const dateRequest = new Date(date_time);
   const hourRequest = dateRequest.getHours();
-  const minutesRequest = dateRequest.getMinutes();
+  let minutesRequest: any = dateRequest.getMinutes();
+
+  if (minutesRequest === 0) {
+    minutesRequest = "00";
+  }
+
   const hoursAndMinutesRequest = `${hourRequest}:${minutesRequest}`.toString();
   const obj = { [hoursAndMinutesRequest]: false };
 

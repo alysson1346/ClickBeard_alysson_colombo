@@ -16,9 +16,13 @@ const verifyDates = async (req: Request, res: Response, next: NextFunction) => {
     const monthRequest = dateRequest.getMonth() + 1;
     const yearRequest = dateRequest.getFullYear();
     const hourRequest = dateRequest.getHours();
-    const minutesRequest = dateRequest.getMinutes();
-    const hoursAndMinutesRequest = `${hourRequest}:${minutesRequest}`;
+    let minutesRequest: any = dateRequest.getMinutes();
 
+    if (minutesRequest === 0) {
+      minutesRequest = "00";
+    }
+
+    const hoursAndMinutesRequest = `${hourRequest}:${minutesRequest}`;
     const dateCompleteRequest = `${dayRequest}/${monthRequest}/${yearRequest}`;
 
     const avaliableTime = avaliable;
