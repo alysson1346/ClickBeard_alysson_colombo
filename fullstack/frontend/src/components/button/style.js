@@ -10,4 +10,7 @@ export const ButtonColor = styled.button`
   align-items: center;
   justify-content: center;
   gap: 5px;
+  :hover {
+    cursor: pointer;
+  }
 `;

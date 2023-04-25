@@ -26,7 +26,7 @@ export const Header = () => {
           }}
         >
           <FaDoorOpen />
-          Logout
+          Sair
         </Button>
       ) : (
         <Button

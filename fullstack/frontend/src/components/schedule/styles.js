@@ -19,24 +19,31 @@ export const Text = styled.p`
   text-align: center;
   background-color: green;
   color: white;
-  border-radius: 15px;
-  padding: 10px;
+  padding: 8px;
   max-width: 150px;
   margin: 0;
 `;
 
 export const Button = styled.button`
   text-align: center;
-  background-color: black;
-  color: white;
-  border-radius: 15px;
+  background-color: #f000;
+  color: black;
   padding: 10px;
   max-width: 150px;
   margin: 0;
+
+  :hover {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+  }
 `;
 export const ButtonCalendary = styled.button`
   background: black;
   color: white;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const Title = styled.h1`

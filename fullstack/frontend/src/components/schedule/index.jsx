@@ -1,57 +1,54 @@
+import { useState, useEffect } from "react";
 import {
   Container,
   DivRow,
   Title,
   SubTitle,
   Text,
-  DivContent,
   DivHorary,
   DataInput,
   Button,
   ButtonCalendary,
   DivTimes,
 } from "./styles";
-import { useState, useEffect } from "react";
 import Api from "../../services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const DashBoardClient = () => {
+export const Schedule = () => {
+  const token = JSON.parse(localStorage.getItem("@UserAuthorization:token"));
+
   const [servicesState, setServicesState] = useState(true);
   const [barberState, setBarberState] = useState(false);
   const [horaryState, setHoraryState] = useState(false);
 
   const [service, setService] = useState("");
   const [barbers, setBarbers] = useState("");
-
-  const [list, setList] = useState([]);
+  const [barberId, setBarberId] = useState("");
   const [barber, setBarber] = useState([]);
+
+  const [listSpecialties, setListSpecialties] = useState([]);
   const [dateList, SetDateList] = useState([]);
   const [date, setDate] = useState("");
   const [hour, setHour] = useState("");
   const [idAvaliable, setIdAvaliable] = useState("");
-  const [barberId, setBarberId] = useState("");
-  const [schedule, setSchedule] = useState("");
 
-  const filter = list.filter((elem) => elem.attributed === true);
+  const filter = listSpecialties.filter((elem) => elem.attributed === true);
 
   useEffect(() => {
     Api.get("specialty")
       .then((res) => {
-        setList(res.data);
+        setListSpecialties(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
   const getBarbers = () => {
-    const listBarbers = [];
     Api.get("/barber")
       .then((res) => {
         setBarber(res.data);
       })
       .catch((err) => console.log(err));
-
-    //return listBarbers.filter((elem) => elem.specialties === obj);
   };
 
   const getDate = (date) => {
@@ -74,7 +71,7 @@ export const DashBoardClient = () => {
     const dateReq = `${date}T${hour}`;
 
     const req = new Object();
-    req.user_email = "";
+    req.user_email = token.user.email;
     req.barber_id = barberId;
     req.specialty_id = service.id;
     req.avaliable_time_id = idAvaliable;
@@ -120,7 +117,7 @@ export const DashBoardClient = () => {
                     setServicesState(false);
                     setBarberState(true);
                     setService(elem);
-                    getBarbers();
+                    getBarbers(elem);
                   }}
                 >
                   {elem.name}

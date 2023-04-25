@@ -1,7 +1,6 @@
-import { Header } from "../../components/header";
 import { useAuth } from "../../providers/authenticad";
 import { Redirect } from "react-router-dom";
-import { DashBoardClient } from "../../components/dashBoardClient";
+import Dashboard from "../../components/dashboard";
 
 const DashboardPage = () => {
   const { isAuthenticated } = useAuth();
@@ -10,8 +9,7 @@ const DashboardPage = () => {
   }
   return (
     <>
-      <Header />
-      <DashBoardClient />
+      <Dashboard />
     </>
   );
 };

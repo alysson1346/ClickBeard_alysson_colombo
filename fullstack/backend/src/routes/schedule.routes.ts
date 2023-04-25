@@ -4,6 +4,8 @@ import { Router } from "express";
 import createScheduleController from "../controllers/schedule/createSchedule.controller";
 import listScheduleController from "../controllers/schedule/listSchedule.controller";
 import cancelScheduleController from "../controllers/schedule/cancelSchedule.controllers";
+import listSchedulesForIdController from "../controllers/schedule/listSchedulesForId.controller";
+import finishScheduleController from "../controllers/schedule/finishedSchedule.controller";
 
 //middlewares
 import verifyDates from "../middlewares/verifyDataSchedule.middleware";
@@ -12,6 +14,8 @@ import verifyDates from "../middlewares/verifyDataSchedule.middleware";
 const routesSchedule = Router();
 routesSchedule.post("", verifyDates, createScheduleController);
 routesSchedule.patch("/cancel/:id", cancelScheduleController);
+routesSchedule.patch("/finished/:id", finishScheduleController);
 routesSchedule.get("", listScheduleController);
+routesSchedule.get("/:id_user", listSchedulesForIdController);
 
 export default routesSchedule;

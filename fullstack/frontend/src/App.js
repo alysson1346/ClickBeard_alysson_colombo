@@ -4,6 +4,7 @@ import CreateAccount from "./pages/createAccount";
 import { useEffect } from "react";
 import { useAuth } from "./providers/authenticad";
 import DashboardPage from "./pages/dashboard";
+import LabTabs from "./components/tabs";
 
 const App = () => {
   const { isAuthenticated, login, logout } = useAuth();
@@ -29,6 +30,9 @@ const App = () => {
 
       <Route exact path="/dashboard">
         <DashboardPage />
+      </Route>
+      <Route exact path="/see-appointments">
+        <LabTabs></LabTabs>
       </Route>
     </Switch>
   );

@@ -5,9 +5,10 @@ const theme = createTheme({
     primary: "#222222",
     secondary: "#ffcb05",
     white: "white",
-    atk: "#ff5733",
-    def: "#00b300",
-    sta: "#ffd700",
+    column: {
+      even: "#dbdbdbde",
+      odd: "#cfcfcf",
+    },
   },
 });
 
