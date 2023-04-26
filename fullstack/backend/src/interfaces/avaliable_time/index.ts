@@ -1,7 +1,7 @@
 import { Barber } from "../../entities/barber.entity";
 
 export interface ICreateAvaliableTime {
-  date: Date;
+  date: string;
   barber_id: string;
 }
 

@@ -14,7 +14,17 @@ const todayScheduleServices = async () => {
     .where("schedule.date_time::text LIKE :date", { date: `%${date}%` })
     .getMany();
 
-  return schedules;
+  const sortedSchedules = schedules.sort((a, b) => {
+    if (a.date_time < b.date_time) {
+      return -1;
+    } else if (a.date_time > b.date_time) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  return sortedSchedules;
 };
 
 export default todayScheduleServices;

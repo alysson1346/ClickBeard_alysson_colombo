@@ -23,6 +23,8 @@ Um pouco das tecnologias usadas.
 - [PostgreSQL](https://www.postgresql.org/)
 - [TypeORM](https://typeorm.io/)
 
+![](/assets/img/diagrama.jpg)
+
 ---
 
 ## 2. Início Rápido
@@ -106,6 +108,9 @@ yarn dev
 - [Schedule](#5-Schedule)
   - [POST - /schedule](#51-Criando-agendamento)
   - [PATCH - /schedule/cancel/{id_schedule}](#52-Cancelando-agendamento)
+  - [GET - /schedule/get/today](#53-Agendamentos-de-hoje)
+  - [GET - /schedule/get/filter/:date](#54-Agendamentos-filtrados-por-data)
+  - [GET - /schedule/:id_user](#55-Agendamentos-do-usuario)
 
 ---
 
@@ -127,7 +132,7 @@ O objeto User é definido como:
 
 | Método | Rota        | Descrição                                   |
 | ------ | ----------- | ------------------------------------------- |
-| POST   | /users      | Criação de um usuário.                      |
+| POST   | /user       | Criação de um usuário.                      |
 | GET    | /user       | Lista todos os usuários.                    |
 | POST   | /user/login | Loga o usuário de acordo com as credenciais |
 
@@ -300,7 +305,7 @@ Content-type: application/json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/barber`
+### POST`/barber`
 
 ### Exemplo de Request:
 
@@ -334,7 +339,7 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/barber/{barber_id}`
+### POST`/barber/{barber_id}`
 
 ### Exemplo de Request:
 
@@ -345,8 +350,7 @@ Content-type: Json
 ```
 
 ```
-POST /barber
-Host: http://localhost:3001/barber/{id}
+Host: http://localhost:3001/barber/{barber_id}
 Authorization: None
 Content-type: None
 ```
@@ -370,10 +374,6 @@ Content-type: None
 ```
 
 ```
-200 Ok
-```
-
-```
 
 ### Possíveis Erros:
 
@@ -391,7 +391,7 @@ Content-type: None
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/specialty`
+### POST`/specialty`
 
 ### Exemplo de Request:
 
@@ -402,7 +402,6 @@ Content-type: None
 ```
 
 ```
-POST /barber
 Host: http://localhost:3001/specialty
 Authorization: None
 Content-type: Json
@@ -425,10 +424,9 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/specialty`
+### GET`/specialty`
 
 ```
-GET /barber
 Host: http://localhost:3001/specialty
 Authorization: None
 Content-type: Json
@@ -469,7 +467,7 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/avaliable-times/{id_barber}`
+### POST`/avaliable-times/{id_barber}`
 
 ### Exemplo de Request:
 
@@ -528,7 +526,7 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/avaliable-times/{yyyy/mm/dd}`
+### GET `/avaliable-times/{yyyy/mm/dd}`
 
 ```
 GET /avaliable-times/{yyyy/mm/dd}`
@@ -604,7 +602,7 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/avaliable-times/{id_avaliable_time}`
+### PATCH`/avaliable-times/{id_avaliable_time}`
 
 ### Exemplo de Request:
 
@@ -616,7 +614,6 @@ Content-type: Json
 ```
 
 ```
-PATCH /avaliable-times
 Host: http://localhost:3001/avaliable-times/{id_avaliable_time}
 Authorization: None
 Content-type: Json
@@ -660,7 +657,7 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/schedule`
+### POST `/schedule`
 
 ### Exemplo de Request:
 
@@ -674,7 +671,7 @@ Content-type: Json
 }
 ```
 
-POST /avaliable-times
+```
 Host: http://localhost:3001/schedule
 Authorization: None
 Content-type: Json
@@ -682,8 +679,6 @@ Content-type: Json
 ```
 
 ### Exemplo de Response:
-
-```
 
 201 Created
 
@@ -743,24 +738,16 @@ Content-type: Json
 
 [ Voltar para os Endpoints ](#3-endpoints)
 
-### `/schedule/{id_schedule}`
-
-### Exemplo de Request:
-
-```json
+### PATCH`/schedule/cancel/{id_schedule}`
 
 ```
-
-POST /avaliable-times
-Host: http://localhost:3001/schedule
+Host: http://localhost:3001/schedule/cancel/{id_schedule}
 Authorization: None
 Content-type: Json
 
 ```
 
 ### Exemplo de Response:
-
-```
 
 201 Created
 
@@ -798,3 +785,285 @@ Content-type: Json
 	}
 }
 ````
+
+### 5.2. **Concluindo o serviço de agendamento**
+
+[ Voltar para os Endpoints ](#3-endpoints)
+
+### PATCH`/schedule/finished/{id_schedule}`
+
+### Exemplo de Request:
+
+```
+
+Host: http://localhost:3001/schedule/finished/{id_schedule}
+Authorization: None
+Content-type: Json
+
+```
+
+### Exemplo de Response:
+
+```
+
+201 Created
+
+```
+
+```json
+{
+  "id": "1502d1e7-3a7e-4a63-8a53-3406905a1d46",
+  "date_time": "2023-04-24T17:30:00.000Z",
+  "status": "Concluído",
+  "available_times": {
+    "id": "eab0f3fb-ae25-4129-9c57-fde5e107e1c7",
+    "date": "2023-04-24T06:00:00.000Z",
+    "8:00": true,
+    "8:30": true,
+    "9:00": true,
+    "9:30": true,
+    "10:00": true,
+    "10:30": true,
+    "11:00": true,
+    "11:30": false,
+    "12:00": true,
+    "12:30": true,
+    "13:00": true,
+    "13:30": true,
+    "14:00": true,
+    "14:30": true,
+    "15:00": true,
+    "15:30": true,
+    "16:00": true,
+    "16:30": true,
+    "17:00": true,
+    "17:30": true,
+    "18:00": true
+  }
+}
+```
+
+### 5.3. **Agendamentos de hoje**
+
+[ Voltar para os Endpoints ](#3-endpoints)
+
+### GET`/schedule/get/today`
+
+### Exemplo de Request:
+
+```
+
+Host: http://localhost:3001/schedule/get/today
+Authorization: None
+Content-type: Json
+
+```
+
+### Exemplo de Response:
+
+```
+
+201 Created
+
+```
+
+```json
+[
+  {
+    "id": "61ce9aa5-6bce-4bb4-bf35-e9cafb930d36",
+    "date_time": "2023-04-26T13:00:00.000Z",
+    "status": "Concluído",
+    "user": {
+      "id": "f3c60bf2-c3c3-44c1-8b01-6d895f8592db",
+      "name": "Alysson Colombo",
+      "email": "colomboalysson@gmail.com",
+      "is_admin": false,
+      "password": "$2b$10$N4DqynkVWpb4kH3tMGB8Me2t6dbIFPtTjGRzL6kv5YQkMTT36TNPO"
+    },
+    "barber": {
+      "id": "85fae8ec-0bbe-473f-a11a-d02488fde4f4",
+      "name": "Joao",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    },
+    "specialty": {
+      "id": "67769ad4-1f4f-41fe-bda3-225934104e26",
+      "name": "barba",
+      "attributed": true
+    }
+  },
+  {
+    "id": "8e537334-05c7-4e94-8092-9bec6b5bf9c5",
+    "date_time": "2023-04-26T18:00:00.000Z",
+    "status": "Concluído",
+    "user": {
+      "id": "f3c60bf2-c3c3-44c1-8b01-6d895f8592db",
+      "name": "Alysson Colombo",
+      "email": "colomboalysson@gmail.com",
+      "is_admin": false,
+      "password": "$2b$10$N4DqynkVWpb4kH3tMGB8Me2t6dbIFPtTjGRzL6kv5YQkMTT36TNPO"
+    },
+    "barber": {
+      "id": "85fae8ec-0bbe-473f-a11a-d02488fde4f4",
+      "name": "Joao",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    },
+    "specialty": {
+      "id": "67769ad4-1f4f-41fe-bda3-225934104e26",
+      "name": "barba",
+      "attributed": true
+    }
+  }
+]
+```
+
+### 5.4. **Agendamentos filtrados por data**
+
+[ Voltar para os Endpoints ](#3-endpoints)
+
+### GET`/schedule/get/filter/dd-mm-yyyy`
+
+### Exemplo de Request:
+
+```
+Exemplo:
+Host: http://localhost:3001/schedule/filter/26-04-2023
+Authorization: None
+Content-type: Json
+
+```
+
+### Exemplo de Response:
+
+```
+
+201 Created
+
+```
+
+```json
+[
+  {
+    "id": "61ce9aa5-6bce-4bb4-bf35-e9cafb930d36",
+    "date_time": "2023-04-26T13:00:00.000Z",
+    "status": "Concluído",
+    "user": {
+      "id": "f3c60bf2-c3c3-44c1-8b01-6d895f8592db",
+      "name": "Alysson Colombo",
+      "email": "colomboalysson@gmail.com",
+      "is_admin": false,
+      "password": "$2b$10$N4DqynkVWpb4kH3tMGB8Me2t6dbIFPtTjGRzL6kv5YQkMTT36TNPO"
+    },
+    "barber": {
+      "id": "85fae8ec-0bbe-473f-a11a-d02488fde4f4",
+      "name": "Joao",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    },
+    "specialty": {
+      "id": "67769ad4-1f4f-41fe-bda3-225934104e26",
+      "name": "barba",
+      "attributed": true
+    }
+  },
+  {
+    "id": "8e537334-05c7-4e94-8092-9bec6b5bf9c5",
+    "date_time": "2023-04-26T18:00:00.000Z",
+    "status": "Concluído",
+    "user": {
+      "id": "f3c60bf2-c3c3-44c1-8b01-6d895f8592db",
+      "name": "Alysson Colombo",
+      "email": "colomboalysson@gmail.com",
+      "is_admin": false,
+      "password": "$2b$10$N4DqynkVWpb4kH3tMGB8Me2t6dbIFPtTjGRzL6kv5YQkMTT36TNPO"
+    },
+    "barber": {
+      "id": "85fae8ec-0bbe-473f-a11a-d02488fde4f4",
+      "name": "Joao",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    },
+    "specialty": {
+      "id": "67769ad4-1f4f-41fe-bda3-225934104e26",
+      "name": "barba",
+      "attributed": true
+    }
+  }
+]
+```
+
+### 5.5. **Agendamentos do usuário**
+
+[ Voltar para os Endpoints ](#3-endpoints)
+
+### GET`/schedule/{id_user}`
+
+### Exemplo de Request:
+
+```
+Exemplo:
+Host: http://localhost:3001/schedule/{id_user}
+Authorization: None
+Content-type: Json
+
+```
+
+### Exemplo de Response:
+
+```
+
+201 Created
+
+```
+
+```json
+[
+  {
+    "id": "61ce9aa5-6bce-4bb4-bf35-e9cafb930d36",
+    "date_time": "2023-04-26T13:00:00.000Z",
+    "status": "Concluído",
+    "user": {
+      "id": "f3c60bf2-c3c3-44c1-8b01-6d895f8592db",
+      "name": "Alysson Colombo",
+      "email": "colomboalysson@gmail.com",
+      "is_admin": false,
+      "password": "$2b$10$N4DqynkVWpb4kH3tMGB8Me2t6dbIFPtTjGRzL6kv5YQkMTT36TNPO"
+    },
+    "barber": {
+      "id": "85fae8ec-0bbe-473f-a11a-d02488fde4f4",
+      "name": "Joao",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    },
+    "specialty": {
+      "id": "67769ad4-1f4f-41fe-bda3-225934104e26",
+      "name": "barba",
+      "attributed": true
+    }
+  },
+  {
+    "id": "8e537334-05c7-4e94-8092-9bec6b5bf9c5",
+    "date_time": "2023-04-26T18:00:00.000Z",
+    "status": "Concluído",
+    "user": {
+      "id": "f3c60bf2-c3c3-44c1-8b01-6d895f8592db",
+      "name": "Alysson Colombo",
+      "email": "colomboalysson@gmail.com",
+      "is_admin": false,
+      "password": "$2b$10$N4DqynkVWpb4kH3tMGB8Me2t6dbIFPtTjGRzL6kv5YQkMTT36TNPO"
+    },
+    "barber": {
+      "id": "85fae8ec-0bbe-473f-a11a-d02488fde4f4",
+      "name": "Joao",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    },
+    "specialty": {
+      "id": "67769ad4-1f4f-41fe-bda3-225934104e26",
+      "name": "barba",
+      "attributed": true
+    }
+  }
+]
+```

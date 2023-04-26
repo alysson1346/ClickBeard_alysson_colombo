@@ -10,7 +10,7 @@ export class Schedule {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @Column()
+  @Column({ type: "timestamptz" })
   date_time: Date;
 
   @Column({ default: "Agendado" })

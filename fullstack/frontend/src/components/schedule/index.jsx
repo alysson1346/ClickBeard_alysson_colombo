@@ -10,6 +10,7 @@ import {
   Button,
   ButtonCalendary,
   DivTimes,
+  BtnReset,
 } from "./styles";
 import Api from "../../services";
 import { ToastContainer, toast } from "react-toastify";
@@ -43,8 +44,9 @@ export const Schedule = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const getBarbers = () => {
-    Api.get("/barber")
+  const getBarbers = (specialty) => {
+    console.log(specialty);
+    Api.get(`/barber/${specialty}`)
       .then((res) => {
         setBarber(res.data);
       })
@@ -67,6 +69,17 @@ export const Schedule = () => {
       .catch((err) => console.log(err));
   };
 
+  const resetStates = () => {
+    setServicesState(true);
+    setBarberState(false);
+    setHoraryState(false);
+    SetDateList([]);
+    setService("");
+    setBarbers("");
+    setDate("");
+    setHour("");
+  };
+
   const request = () => {
     const dateReq = `${date}T${hour}`;
 
@@ -80,6 +93,8 @@ export const Schedule = () => {
 
     Api.post("/schedule", req)
       .then((res) => {
+        resetStates();
+        setHoraryState(false);
         return toast.success("Agendado!", {
           position: "top-right",
           autoClose: 1000,
@@ -118,7 +133,7 @@ export const Schedule = () => {
                     setServicesState(false);
                     setBarberState(true);
                     setService(elem);
-                    getBarbers(elem);
+                    getBarbers(elem.name);
                   }}
                 >
                   {elem.name}
@@ -180,18 +195,25 @@ export const Schedule = () => {
           </DivHorary>
           <SubTitle>Escolha o horário:</SubTitle>
           <DivTimes>
-            {dateList.map((elem) => {
-              return (
-                <Button
-                  onClick={() => {
-                    setHour(elem);
-                    setHoraryState(false);
-                  }}
-                >
-                  {elem}
-                </Button>
-              );
-            })}
+            {dateList.length === 0 ? (
+              <h4>Nenhum horário disponível</h4>
+            ) : (
+              <>
+                {" "}
+                {dateList.map((elem) => {
+                  return (
+                    <Button
+                      onClick={() => {
+                        setHour(elem);
+                        setHoraryState(false);
+                      }}
+                    >
+                      {elem}
+                    </Button>
+                  );
+                })}
+              </>
+            )}
           </DivTimes>
         </Container>
       ) : (
@@ -210,6 +232,13 @@ export const Schedule = () => {
           </div>
         </Container>
       )}
+      <BtnReset
+        onClick={() => {
+          resetStates();
+        }}
+      >
+        Resetar
+      </BtnReset>
       <ToastContainer />
     </Container>
   );

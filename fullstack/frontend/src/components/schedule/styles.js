@@ -45,6 +45,11 @@ export const ButtonCalendary = styled.button`
     cursor: pointer;
   }
 `;
+export const BtnReset = styled.button`
+  background-color: black;
+  color: white;
+  margin-top: 20px;
+`;
 
 export const Title = styled.h1`
   text-align: center;

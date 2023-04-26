@@ -8,7 +8,7 @@ export class Available_times {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @Column()
+  @Column({ type: "timestamptz" })
   date: Date;
 
   @ManyToOne(() => Barber, (barber) => barber.available_times)

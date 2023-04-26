@@ -85,15 +85,18 @@ export const ConsultAppointments = () => {
         });
       })
       .catch((err) => {
-        toast.error("Ops, algo deu errado!", {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(
+          "Não é possível cancelar antes de 2 horas de antecedência!",
+          {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       });
   };
 
@@ -130,7 +133,10 @@ export const ConsultAppointments = () => {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     const hours = date.getHours();
-    const minutes = date.getMinutes();
+    let minutes = date.getMinutes();
+    if (minutes === 0) {
+      minutes = "00";
+    }
 
     return `${hours}:${minutes} - ${day}/${month}/${year}`;
   }

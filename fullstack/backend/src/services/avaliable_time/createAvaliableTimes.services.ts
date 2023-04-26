@@ -2,7 +2,7 @@ import { AppDataSource } from "../../data-source";
 import { Available_times } from "../../entities/available_time.entity";
 import { Barber } from "../../entities/barber.entity";
 import { ICreateAvaliableTime } from "../../interfaces/avaliable_time";
-
+import moment from "moment-timezone";
 const createAvaliableTimesServices = async ({
   date,
   barber_id,
@@ -17,7 +17,8 @@ const createAvaliableTimesServices = async ({
   }
 
   const available_time = new Available_times();
-  available_time.date = date;
+  const formattedDate = moment.tz(date, "UTC").tz("America/Sao_Paulo").toDate();
+  available_time.date = formattedDate;
   available_time.barber = barber;
 
   repositoryAvaliableTime.create(available_time);
