@@ -76,6 +76,7 @@ export const Schedule = () => {
     req.specialty_id = service.id;
     req.avaliable_time_id = idAvaliable;
     req.date_time = dateReq;
+    console.log(req);
 
     Api.post("/schedule", req)
       .then((res) => {
@@ -202,7 +203,7 @@ export const Schedule = () => {
           <Text>{barbers}</Text>
 
           <SubTitle>Data escolhida:</SubTitle>
-          <Text>{`${hour}hrs ${date}`}</Text>
+          <Text>{`${hour}hrs ${date.slice(8, 10)}/${date.slice(5, 7)}`}</Text>
 
           <div className="btnconfirm">
             <Button onClick={() => request()}>Agendar</Button>

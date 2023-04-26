@@ -6,6 +6,8 @@ import listScheduleController from "../controllers/schedule/listSchedule.control
 import cancelScheduleController from "../controllers/schedule/cancelSchedule.controllers";
 import listSchedulesForIdController from "../controllers/schedule/listSchedulesForId.controller";
 import finishScheduleController from "../controllers/schedule/finishedSchedule.controller";
+import todayScheduleController from "../controllers/schedule/todaySchedule.controller";
+import filterDataScheduleController from "../controllers/schedule/filterDateSchedule.controller";
 
 //middlewares
 import verifyDates from "../middlewares/verifyDataSchedule.middleware";
@@ -17,5 +19,7 @@ routesSchedule.patch("/cancel/:id", cancelScheduleController);
 routesSchedule.patch("/finished/:id", finishScheduleController);
 routesSchedule.get("", listScheduleController);
 routesSchedule.get("/:id_user", listSchedulesForIdController);
+routesSchedule.get("/get/today", todayScheduleController);
+routesSchedule.get("/get/filter/:date", filterDataScheduleController);
 
 export default routesSchedule;
