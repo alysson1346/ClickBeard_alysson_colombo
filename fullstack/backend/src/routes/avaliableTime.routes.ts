@@ -10,7 +10,7 @@ import updateAvaliableTimeController from "../controllers/avaliable_time/updateA
 const routesAvaliableTime = Router();
 routesAvaliableTime.post("/:barber_id", createAvaliableTimesController);
 routesAvaliableTime.get("", listAvaliableTimeController);
-routesAvaliableTime.get("/:date", filterDateDayController);
+routesAvaliableTime.get("/:barber_id/:date", filterDateDayController);
 routesAvaliableTime.patch("/:id", updateAvaliableTimeController);
 
 export default routesAvaliableTime;

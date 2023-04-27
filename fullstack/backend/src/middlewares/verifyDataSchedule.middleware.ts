@@ -28,7 +28,9 @@ const verifyDates = async (req: Request, res: Response, next: NextFunction) => {
     const avaliableTime = avaliable;
 
     const dataAvaliable = avaliableTime.date;
-    const dateAvaliable = new Date(dataAvaliable);
+    const dateAvaliablePostgres = new Date(dataAvaliable);
+    const dateAvaliable = new Date(dateAvaliablePostgres);
+    dateAvaliable.setHours(dateAvaliable.getHours() + 3);
 
     const dayAvaliable = dateAvaliable.getDate();
     const monthAvaliable = dateAvaliable.getMonth() + 1;

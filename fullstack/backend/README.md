@@ -105,6 +105,7 @@ yarn dev
   - [POST - /avaliable-times/{id_barber}](#41-Liberando-horarios)
   - [GET - /avaliable-times](#42-Listando-por-data)
   - [PATCH - /avaliable-times/{id_avaliable_time}](#43-Atualizando-horarios)
+  - [PATCH - /avaliable-times/{id_barber}/:date](#44-Filtro-por-barbeiro-e-data)
 - [Schedule](#5-Schedule)
   - [POST - /schedule](#51-Criando-agendamento)
   - [PATCH - /schedule/cancel/{id_schedule}](#52-Cancelando-agendamento)
@@ -651,6 +652,60 @@ Content-type: Json
   "17:30": true,
   "18:00": true
 }
+```
+
+### 4.4. \*\*Filtro por barbeiro e data
+
+[ Voltar para os Endpoints ](#3-endpoints)
+
+### GET`/avaliable-times/{id_barber}/yy-mm-dd`
+
+```
+Host: http://localhost:3001/avaliable-times/{id_barber}/yy-mm-dd`
+Authorization: None
+Content-type: Json
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "9e20d250-ce96-4531-9fa8-585fd3c5d231",
+    "date": "2023-05-02T00:00:00.000Z",
+    "8:00": true,
+    "8:30": true,
+    "9:00": true,
+    "9:30": true,
+    "10:00": false,
+    "10:30": false,
+    "11:00": true,
+    "11:30": true,
+    "12:00": true,
+    "12:30": true,
+    "13:00": true,
+    "13:30": true,
+    "14:00": true,
+    "14:30": true,
+    "15:00": true,
+    "15:30": true,
+    "16:00": true,
+    "16:30": true,
+    "17:00": true,
+    "17:30": true,
+    "18:00": true,
+    "barber": {
+      "id": "76db2faf-1ccd-49d1-b498-2fb305c2e3f6",
+      "name": "Mateus",
+      "age": 24,
+      "hiring_date": "2018-05-10T03:00:00.000Z"
+    }
+  }
+]
 ```
 
 ### 5.1. **Criando agendamento**

@@ -45,7 +45,6 @@ export const Schedule = () => {
   }, []);
 
   const getBarbers = (specialty) => {
-    console.log(specialty);
     Api.get(`/barber/${specialty}`)
       .then((res) => {
         setBarber(res.data);
@@ -55,7 +54,7 @@ export const Schedule = () => {
 
   const getDate = (date) => {
     const arr = [];
-    Api.get(`/avaliable-times/${date}`)
+    Api.get(`/avaliable-times/${barberId}/${date}`)
       .then((res) => {
         const result = res.data[0];
         setIdAvaliable(result.id);

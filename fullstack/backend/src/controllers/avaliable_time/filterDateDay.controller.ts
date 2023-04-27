@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import filterDateDayServices from "../../services/avaliable_time/filterDateDay.services";
+import filterDateDayAndBarberServices from "../../services/avaliable_time/filterDateDay.services";
 
 const filterDateDayController = async (req: Request, res: Response) => {
   try {
+    const { barber_id } = req.params;
     const { date } = req.params;
-    const result = await filterDateDayServices(date);
+    const result = await filterDateDayAndBarberServices(date, barber_id);
 
     return res.status(200).send(result);
   } catch (err) {
